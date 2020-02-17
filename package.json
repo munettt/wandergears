@@ -10,6 +10,7 @@
     "gridsome": "^0.7.0"
   },
   "devDependencies": {
+    "airtable": "^0.8.1",
     "tailwindcss": "^1.2.0"
   }
 }

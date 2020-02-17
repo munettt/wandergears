@@ -7,9 +7,13 @@
 const tailwindcss = require("tailwindcss")
 
 module.exports = {
-  siteName: 'Wandergears',
-  titleTemplate: "Wandergears - %s",
-  plugins: [],
+  siteName: 'Wanderlust Gears',
+  titleTemplate: "Wanderlust Gears - %s",
+  templates: {
+    Tag: '/tags/:id',
+  },
+  plugins: [
+  ],
   css: {
     loaderOptions: {
       postcss: {

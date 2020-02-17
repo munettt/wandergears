@@ -1,0 +1,26 @@
+[
+    {
+      "name": "Canon",
+      "logo": "canon.svg"
+    },
+    {
+      "name": "Sony",
+      "logo": "sony.svg"
+    },
+    {
+      "name": "Nikon",
+      "logo": "nikon.svg"
+    },
+    {
+      "name": "Panasonic",
+      "logo": "panasonic.svg"
+    },
+    {
+      "name": "Olympus",
+      "logo": "olympus.svg"
+    },
+    {
+      "name": "Fujifilm",
+      "logo": "fujifilm.svg"
+    }
+]
