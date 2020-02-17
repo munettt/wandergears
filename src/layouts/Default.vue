@@ -14,15 +14,19 @@
         </nav>
       </div>
     </header>
-    <div class="container mx-auto mt-5">
-    <slot/>
+    <div class="container mx-auto mt-5 mb-10">
+      <slot/>
     </div>
   </div>
 </template>
 
 <style>
 .nav-item {
-  @apply py-8 mr-4 text-gray-700;
+  @apply mr-4 text-gray-500 transition-colors py-2 px-3 rounded font-bold uppercase text-sm tracking-tight;
+}
+
+.nav-item:hover {
+  @apply text-indigo-600;
 }
 </style>
 
