@@ -10,7 +10,7 @@
         </div>
         <nav>
           <g-link class="nav-item" to="/">Home</g-link>
-          <g-link class="nav-item" to="/suggest/">Suggest Gear</g-link>
+          <g-link class="nav-item" to="https://airtable.com/shrNHuMpYUbCRibZj">Suggest Gear</g-link>
         </nav>
       </div>
     </header>

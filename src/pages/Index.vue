@@ -49,7 +49,11 @@
       <div class="w-full lg:w-1/5 px-2 text-sm">
         <div class="p-3 rounded bg-gray-100">
           <h3 class="font-bold mb-2">Tags</h3>
-          <g-link :to="'/tags/'+node.id" class="tag-item" :key="node.id" v-for="{node} in $static.allTag.edges">#{{node.name}}</g-link>
+          <a href="#" @click.prevent="filterTag(node.name)" class="tag-item" :class="{'active': tagsActive.includes(node.id)}" :key="node.id" v-for="{node} in $static.allTag.edges">#{{node.name}}</a>
+
+          <!-- <div class="mt-3" v-show="this.tagsActive.length>0">
+              <g-link to="/" @click="this.tagsActive=[]" class="rounded text-xs text-center py-1 px-3 bg-gray-500 uppercase text-white transition-colors duration-150 hover:bg-blue-600">Clear Filter</g-link>
+          </div> -->
         </div>
       </div>
     </div>
@@ -67,6 +71,10 @@
         badge
         link
         card
+        tags
+        {
+            name
+        }
       }
     }
   }
@@ -93,7 +101,8 @@ export default {
   },
   data() {
     return {
-      lensCard: require("../../data/lenses.json")
+      lensCard: require("../../data/lenses.json"),
+      tagsActive: []
     };
   },
   methods: {
@@ -101,14 +110,50 @@ export default {
       card = card.toLowerCase();
 
       return obj.filter(item => {
-        return item.node.card == card;
+            
+        const tags = item.node.tags.map(tag => {
+            return tag.name;
+        });
+
+        const checkTag = this.tagsActive.length > 0 ? tags.some(r=> this.tagsActive.indexOf(r) === 0) : true;
+
+        return item.node.card === card && checkTag;
       });
+    },
+    filterTag(tag){
+       
+       let tags = this.getTagsFromQs()
+
+        if ( !tags.includes(tag) ) {
+            tags.push(tag)
+        }
+        else
+        {
+            tags = tags.filter(e => e !== tag);
+        }
+
+        if ( this.$route.query['tags'] !== tags.join(',') ) {
+            this.$router.push({ query: {
+                'tags': tags.join(',')
+            } });
+        }
+    
+        this.tagsActive = tags;
+    },
+    getTagsFromQs()
+    {
+        let tags = this.$route.query['tags'] || '';
+
+        return tags === '' ? [] : tags.split(',');
     },
     cardLogo(logo) {
       return logo !== ""
         ? require("!!assets-loader!~/assets/images/svg/" + logo).src
         : null;
     }
+  },
+  mounted(){
+      this.tagsActive = this.getTagsFromQs();
   },
   metaInfo: {
     title: "Best list of recommended travel lenses & gears"
@@ -139,6 +184,11 @@ export default {
 
 .tag-item {
   @apply text-indigo-700 py-1 px-1 rounded-full mb-2 block;
+}
+
+.tag-item.active {
+    color: rgb(158, 20, 238);
+    font-weight: bold;
 }
 
 .card-logo svg {
