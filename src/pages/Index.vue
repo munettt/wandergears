@@ -1,8 +1,8 @@
 <template>
   <Layout>
-    <div class="flex flex-wrap -mx-2">
-      <div class="w-full lg:w-4/5 px-2">
-        <g-image src="~/assets/images/main.jpg" class="rounded mb-3" />
+    <div class="flex flex-wrap -mx-0 md:-mx-2">
+      <div class="w-full lg:w-4/5 px-0 md:px-2">
+        <g-image src="~/assets/images/main.jpg" class="md:rounded mb-3" />
         <!--<h2 class="text-3xl font-semibold mb-2">Lenses</h2>-->
         <div class="text-gray-800 font-light p-3 md:p-0">
           <p class="mb-3">
