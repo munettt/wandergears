@@ -13,7 +13,7 @@
             class="mb-5"
           >Here are a list of recommended travel lenses that I compiled from other photographers and professionals found on the web.</p>
         </div>
-        <div class="items-container">
+        <div class="items-container min-h-screen">
           <div
             class="item"
             :key="card.id"
@@ -51,9 +51,9 @@
           <h3 class="font-bold mb-2">Tags</h3>
           <a href="#" @click.prevent="filterTag(node.name)" class="tag-item" :class="{'active': tagsActive.includes(node.id)}" :key="node.id" v-for="{node} in $static.allTag.edges">#{{node.name}}</a>
 
-          <!-- <div class="mt-3" v-show="this.tagsActive.length>0">
-              <g-link to="/" @click="this.tagsActive=[]" class="rounded text-xs text-center py-1 px-3 bg-gray-500 uppercase text-white transition-colors duration-150 hover:bg-blue-600">Clear Filter</g-link>
-          </div> -->
+          <div class="mt-3" v-show="this.tagsActive.length>0">
+              <button  @click="clearFilter()" class="rounded text-xs text-center py-1 px-3 bg-gray-500 uppercase text-white transition-colors duration-150 hover:bg-blue-600">Clear Filter</button>
+          </div>
         </div>
       </div>
     </div>
@@ -145,6 +145,12 @@ export default {
         let tags = this.$route.query['tags'] || '';
 
         return tags === '' ? [] : tags.split(',');
+    },
+    clearFilter(){
+        this.tagsActive=[];
+        this.$router.push({ query: {
+            'tags': ''
+        } });
     },
     cardLogo(logo) {
       return logo !== ""

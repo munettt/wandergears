@@ -17,6 +17,12 @@
     <div class="container mx-auto mt-5 mb-10">
       <slot/>
     </div>
+    <footer class="bg-indigo-100 py-6">
+        <div class="container mx-auto flex justify-between text-xs text-gray-600">
+            <div class=""></div>
+            <div class="">&copy; Wanderlust Gears 2020</div>
+        </div>
+    </footer>
   </div>
 </template>
 
