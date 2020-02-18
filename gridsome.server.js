@@ -10,16 +10,17 @@ module.exports = function (api) {
     api.loadSource(async actions => {
 
         const addCollection = actions.addCollection || actions.addContentType
-        const tags = actions.addCollection('Tag')
 
         const base = new Airtable({apiKey: process.env.AIRTABLE_API_KE}).base(process.env.AIRTABLE_BASE_ID)
-        const collection = addCollection({
+        const itemCollection = addCollection({
             camelCasedFieldNames: true,
             typeName: 'Item',
         })
 
         // makes all ids in the `tags` field reference a `Tag`
-        collection.addReference('tags', 'Tag')
+        itemCollection.addReference('tags', 'Tag')
+
+        const tags = addCollection('Tag')
 
         let tagCache = {};
 
@@ -27,17 +28,20 @@ module.exports = function (api) {
             .select({})
             .eachPage((records, fetchNextPage) => {
                 records.forEach((record) => {
-                    const item = record._rawJson
+                    
+                    record._rawJson.fields.tags = record._rawJson.fields.tags.split(',');
 
-                    collection.addNode({
+                    const item = record._rawJson
+                    
+                    itemCollection.addNode({
                         id: item.id,
                         ...item.fields
                     });
 
-                    if (item.fields.Tags !== '') {
-                        //item.fields.Tags.split(',').forEach(tag => console.log(tag));
+                    if (item.fields.tags !== '') {
+                        //item.fields.tags.split(',').forEach(tag => console.log(tag));
 
-                        item.fields.Tags.split(',').forEach(tag => {
+                        item.fields.tags.forEach(tag => {
                             const cacheKey = `Tag-tags-${tag}`
 
                             if (!tagCache[cacheKey] && tag) {
