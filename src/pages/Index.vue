@@ -115,14 +115,16 @@ export default {
             return tag.name;
         });
 
-        const checkTag = this.tagsActive.length > 0 ? tags.some(r=> this.tagsActive.indexOf(r) === 0) : true;
+        const checkTag = this.tagsActive.length > 0 ? this.tagsActive.every(val => tags.indexOf(val) !== -1) : true;
+
+        //console.log(item.node.name, tags, checkTag)
 
         return item.node.card === card && checkTag;
       });
     },
     filterTag(tag){
        
-       let tags = this.getTagsFromQs()
+        let tags = this.getTagsFromQs();
 
         if ( !tags.includes(tag) ) {
             tags.push(tag)
@@ -189,7 +191,11 @@ export default {
 }
 
 .tag-item {
-  @apply text-indigo-700 py-1 px-1 rounded-full mb-2 block;
+  @apply text-indigo-700 py-1 px-1 rounded-full mb-2 block transition-all duration-100;
+}
+
+.tag-item:hover {
+  @apply text-indigo-900;
 }
 
 .tag-item.active {
