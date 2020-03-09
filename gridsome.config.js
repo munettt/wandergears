@@ -13,6 +13,12 @@ module.exports = {
     Tag: '/tags/:id',
   },
   plugins: [
+    {
+      use: '@gridsome/plugin-google-analytics',
+      options: {
+        id: process.env.GOOGLE_ANALYTICS
+      }
+    }
   ],
   css: {
     loaderOptions: {
